@@ -2,9 +2,14 @@ package ch.bbw.BenBrc.models;
 
 import java.util.*;
 /**
- * Model class for chemical compounds.
- * This class represents a chemical compound with various properties such as name, formula, CAS number, description,
- * pubChemId, molecular weight, InChI key, InChI, SMILES notation, creation date, and IUPAC name.
+ * Datenklasse für chemische Verbindungen (Compounds)
+ * Diese Klasse modelliert eine chemische Verbindung mit typischen Eigenschaften wie Name, Summenformel,
+ * CAS-Nummer, Beschreibung, Strukturinformationen (SMILES, InChI), sowie Molekulargewicht und Masse.
+ * Enthält:
+ * - 13 Attribute mit gemischten Datentypen (String, Integer, Double, Date)
+ * - Konstruktor zur Initialisierung
+ * - Getter- und Setter-Methoden für jedes Feld
+ * - Überschreibung der toString()-Methode für lesbare Ausgabe
  * author: Benedict Brück
  * version: 1.0
  * date: 13.06.25
@@ -24,7 +29,22 @@ public class Compounds {
     private Date createdAt;
     private String IUPACName;
 
-    // constructor
+    /**
+     * Konstruktor für die vollständige Initialisierung eines Compounds
+     * @param compound_CID   Eindeutige ID der Verbindung
+     * @param name           Name der Verbindung
+     * @param formula        Summenformel
+     * @param casNumber      CAS-Nummer
+     * @param description    Beschreibung
+     * @param pubChemId      PubChem-Datenbank-ID
+     * @param molecularMass  Molekularmasse
+     * @param molecularWeight Molekulargewicht
+     * @param inChIKey       InChIKey (Struktur-ID)
+     * @param inChI          InChI (strukturierte chemische Beschreibung)
+     * @param SMILES         Strukturbeschreibung in SMILES-Notation
+     * @param createdAt      Erstellungsdatum
+     * @param IUPACName      IUPAC-konformer Name
+     */
     public Compounds(int compound_CID,
                      String name,
                      String formula,
@@ -53,7 +73,7 @@ public class Compounds {
         this.IUPACName = IUPACName;
     }
 
-    // Getters
+    // Getters (Zugriffsmethoden) für alle Attribute
     public String getCasNumber() {return casNumber;}
     public Date getCreatedAt() {return createdAt;}
     public Integer getCompound_CID() {return compound_CID;}
@@ -68,7 +88,7 @@ public class Compounds {
     public String getPubChemId() {return pubChemId;}
     public String getSMILES() {return SMILES;}
 
-    // Setters
+    // Setters (Änderungsmethoden) für alle Attribute
     public void setCasNumber(String casNumber) {this.casNumber = casNumber;}
     public void setCreatedAt(Date createdAt) {this.createdAt = createdAt;}
     public void setCompound_CID(Integer compound_CID) {this.compound_CID = compound_CID;}
@@ -83,6 +103,10 @@ public class Compounds {
     public void setPubChemId(String pubChemId) {this.pubChemId = pubChemId;}
     public void setSMILES(String SMILES) {this.SMILES = SMILES;}
 
+    /**
+     * Überschriebene toString()-Methode zur Textausgabe der Compound-Daten
+     * Gibt alle Werte des Objekts in einem lesbaren Format aus (z.B. für Debugging oder Konsolenausgabe).
+     */
     @Override
     public String toString() {
         return "Compounds{" +

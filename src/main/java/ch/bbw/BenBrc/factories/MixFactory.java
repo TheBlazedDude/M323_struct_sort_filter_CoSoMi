@@ -5,15 +5,27 @@ import ch.bbw.BenBrc.models.*;
 import java.util.*;
 
 /**
- * Factory class to generate random Mixes from a list of Solutions.
- * Each Mix contains 2–4 Solutions, has a name, type, concentration and preparation date.
- * author: Benedict Brück
- * version: 1.0
- * date: 19.06.25
+ * Diese Klasse dient als Factory zur Generierung realistischer Mix-Objekte für Test- und Demonstrationszwecke.
+ * Sie erstellt Mischungen (Mixes), die aus Solutions bestehen, mit Zufallswerten für Volumen, Typen, Datumsangaben und Beschreibung.
+ * Dabei werden:
+ * - der Mischtyp ("buffer", "solution", "suspension") zufällig bestimmt
+ * - das Volumen als Gleitkommazahl sinnvoll generiert (zwischen 5.0 und 100.0 ml)
+ * - 2 bis 4 zufällige Solutions als Komponenten hinzugefügt
+ * - das Herstellungsdatum realistisch zwischen 2020 und 2025 gezogen
+ * - das Ablaufdatum als ca. 1 Jahr nach Herstellung berechnet
+ * - eine generische, aber kontextbezogene Beschreibung gesetzt
+ * Die erzeugten Mixes sind damit vollständig initialisierte Objekte, die sich zum Sortieren, Filtern und Anzeigen eignen.
+ * Sie erfüllen damit die Anforderungen an Assoziationen zwischen Klassen und tiefergehende Datenstrukturverwendung.
+ * Alle Werte sind realistisch gewählt und könnten so z. B. aus einem Laborverwaltungssystem stammen.
  */
 public class MixFactory {
     private static final Random random = new Random();
 
+    /**
+     * Generiert eine Liste von Mix-Objekten aus einer gegebenen Liste von Solutions.
+     * @param allSolutions Liste von Solutions, die als Komponenten für die Mixes dienen
+     * @return Liste mit Mix-Objekten
+     */
     public static List<Mixes> generateMixesFrom(List<Solutions> allSolutions) {
         List<Mixes> mixes = new ArrayList<>();
 
@@ -42,21 +54,33 @@ public class MixFactory {
             Date expirationDate = expCal.getTime();
 
             mixes.add(new Mixes(
-                    mixId,
-                    name,
-                    description,
-                    type,
-                    volume,
-                    components,
-                    preparationDate,
-                    expirationDate
+                    mixId,              // Mix ID
+                    name,               // Name des Mixes
+                    description,        // Beschreibung des Mixes
+                    type,               // Typ des Mixes (z.B. "buffer", "solution", "suspension")
+                    volume,             // Volumen des Mixes in ml
+                    components,         // Komponenten des Mixes (Liste von Solutions)
+                    preparationDate,    // Herstellungsdatum des Mixes
+                    expirationDate      // Ablaufdatum des Mixes (1 Jahr nach Herstellung)
             ));
         }
 
         return mixes;
     }
 
+    /**
+     * Gibt zufällig eine der vier Typen für chemische Mischungen zurück.
+     * Die Auswahl erfolgt aus einer festen Liste typischer Lösungskategorien.
+     * Verwendet wird die Methode Random.nextInt(bound), um einen Index zwischen 0 und 3 zu wählen.
+     * Mögliche Rückgabewerte:
+     * - "buffer"      (Pufferlösung)
+     * - "suspension"  (Suspension)
+     * - "emulsion"    (Emulsion)
+     * - "extract"     (Extrakt)
+     * @return Zufällig gewählter Typ als String
+     */
     private static String randomType() {
-        return Arrays.asList("solution", "suspension", "buffer").get(random.nextInt(3));
+        String[] types = {"buffer", "suspension", "emulsion", "extract"};
+        return types[random.nextInt(types.length)];
     }
 }

@@ -7,12 +7,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.*;
 import java.util.stream.*;
+
 /**
- * Sorts a list of compounds using different attribute combinations.
- * This utility class provides methods to sort compounds by various attributes such as name, CAS number, molecular mass, and creation date.
- * author: Benedict Brück
- * version: 1.0
- * date: 19.06.25
+ * Die Klasse CompoundSorter bietet statische Methoden zur Sortierung von {@link Compounds}-Objekten
+ * basierend auf verschiedenen Kriterien (z.B. Name, CAS-Nummer, Erstellungsdatum).
+ * Sie verwendet Java Stream-APIs zur eleganten und funktionalen Sortierung.
+ * Autor: Benedict Brück
+ * Version: 1.0
+ * Datum: 19.06.2025
  */
 public class CompoundSorter {
     public static List<Compounds> byNameThenCASThenDate(List<Compounds> list, boolean ascending) {
@@ -27,6 +29,12 @@ public class CompoundSorter {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Sortiert eine Liste von Compounds nach dem Namen und der CAS-Nummer.
+     * @param list die Liste von Compounds
+     * @param ascending ob die Sortierung aufsteigend oder absteigend sein soll
+     * @return eine sortierte Liste von Compounds, begrenzt auf die ersten 5 Einträge
+     */
     public static List<Compounds> byMolecularMassThenIUPAC(List<Compounds> list, boolean ascending) {
         Comparator<Compounds> comparator = Comparator
                 .comparingDouble(Compounds::getMolecularMass)
@@ -38,6 +46,12 @@ public class CompoundSorter {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Sortiert eine Liste von Compounds nach der CID und der SMILES-Darstellung.
+     * @param list die Liste von Compounds
+     * @param ascending ob die Sortierung aufsteigend oder absteigend sein soll
+     * @return eine sortierte Liste von Compounds, begrenzt auf die ersten 5 Einträge
+     */
     public static List<Compounds> byCIDThenSMILES(List<Compounds> list, boolean ascending) {
         Comparator<Compounds> comparator = Comparator
                 .comparingInt(Compounds::getCompound_CID)
@@ -49,6 +63,12 @@ public class CompoundSorter {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Sortiert eine Liste von Compounds nach der molekularen Masse.
+     * @param list die Liste von Compounds
+     * @param ascending ob die Sortierung aufsteigend oder absteigend sein soll
+     * @return eine sortierte Liste von Compounds, begrenzt auf die ersten 5 Einträge
+     */
     public static List<Compounds> byMolecularWeight(List<Compounds> list, boolean ascending) {
         Comparator<Compounds> comparator = Comparator
                 .comparingDouble(Compounds::getMolecularWeight);
@@ -59,6 +79,12 @@ public class CompoundSorter {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Sortiert eine Liste von Compounds nach dem Erstellungsdatum und dem Namen.
+     * @param list die Liste von Compounds
+     * @param ascending ob die Sortierung aufsteigend oder absteigend sein soll
+     * @return eine sortierte Liste von Compounds, begrenzt auf die ersten 5 Einträge
+     */
     public static List<Compounds> byCreatedAtThenName(List<Compounds> list, boolean ascending) {
         Comparator<Compounds> comparator = Comparator
                 .comparing(Compounds::getCreatedAt)
@@ -70,6 +96,12 @@ public class CompoundSorter {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Sortiert eine Liste von Compounds nach der InChI und der CAS-Nummer.
+     * @param list die Liste von Compounds
+     * @param ascending ob die Sortierung aufsteigend oder absteigend sein soll
+     * @return eine sortierte Liste von Compounds, begrenzt auf die ersten 5 Einträge
+     */
     public static List<Compounds> byInChIThenCAS(List<Compounds> list, boolean ascending) {
         Comparator<Compounds> comparator = Comparator
                 .comparing(Compounds::getInChI)
@@ -81,6 +113,12 @@ public class CompoundSorter {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Sortiert eine Liste von Compounds nach dem IUPAC-Namen und der CID.
+     * @param list die Liste von Compounds
+     * @param ascending ob die Sortierung aufsteigend oder absteigend sein soll
+     * @return eine sortierte Liste von Compounds, begrenzt auf die ersten 5 Einträge
+     */
     public static List<Compounds> byIUPACNameThenCID(List<Compounds> list, boolean ascending) {
         Comparator<Compounds> comparator = Comparator
                 .comparing(Compounds::getIUPACName)

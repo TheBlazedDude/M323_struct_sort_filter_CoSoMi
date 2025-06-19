@@ -4,9 +4,9 @@ import ch.bbw.BenBrc.models.Compounds;
 
 import java.util.*;
 /**
- * Factory class to generate random Compounds.
- * This class creates a list of Compounds with random properties for testing purposes.
- * It generates a unique identifier, formula, and other attributes for each compound.
+ * Factory-Klasse zur Generierung zufälliger Compound-Objekte.
+ * Diese Klasse dient zur Erzeugung synthetischer Daten für Tests oder Demonstrationen.
+ * Es werden realitätsnahe Werte erzeugt, inspiriert von chemischen Datenbanken wie PubChem.
  * author: Benedict Brück
  * version: 1.0
  * date: 19.06.25
@@ -14,28 +14,54 @@ import java.util.*;
 public class CompoundFactory {
     private static final Random random = new Random();
 
+    /**
+     * Generiert eine Liste zufälliger Compound-Objekte mit chemisch sinnvollen Daten.
+     * @param count Die Anzahl der zu erzeugenden Compound-Objekte
+     * @return Liste mit erzeugten {@link Compounds}-Objekten
+     */
     public static List<Compounds> generateCompounds(int count) {
         List<Compounds> list = new ArrayList<>();
+
         for (int i = 1; i <= count; i++) {
+            int cid = i;
+            String name = "Compound_" + i;
+            String formula = randomFormula();
+            String casNumber = String.format("%03d-%02d-%1d", i, i % 100, i % 10);  // Beispiel-CAS-Nummer, hier stark vereinfacht
+            String description = "Generated compound " + i;                         // Beispielbeschreibung, hier stark vereinfacht
+            String pubChemId = "CID" + i;                                           // Beispiel-PubChem-ID, hier stark vereinfacht
+            double molecularMass = 100 + random.nextDouble() * 200;                 // Beispiel-Molekülmasse, hier stark vereinfacht
+            double molecularWeight = 90 + random.nextDouble() * 150;                // Beispiel-Molekulargewicht, hier stark vereinfacht
+            String inchiKey = "InChIKey" + i;                                       // Beispiel-InChIKey, hier stark vereinfacht
+            String inchi = "InChI=1S/C" + i + "Generated";                          // Beispiel-InChI-Notation, hier stark vereinfacht
+            String smiles = "C1=CC=CC=" + i;                                        // Beispiel-SMILES-Notation
+            Date createdAt = new Date();                                            // Aktuelles Datum als Erstellungsdatum
+            String iupacName = "Generated IUPAC Name " + i;                         // Beispiel-IUPAC-Namen
+
             list.add(new Compounds(
-                    i,
-                    "Compound_" + i,
-                    randomFormula(),
-                    String.format("%03d-%02d-%1d", i, i % 100, i % 10),
-                    "Generated compound " + i,
-                    "CID" + i,
-                    100 + random.nextDouble() * 200,
-                    90 + random.nextDouble() * 150,
-                    "InChIKey" + i,
-                    "InChI=1S/C" + i + "Generated",
-                    "C1=CC=CC=" + i,
-                    new Date(),
-                    "Generated IUPAC Name " + i
+                    cid,
+                    name,
+                    formula,
+                    casNumber,
+                    description,
+                    pubChemId,
+                    molecularMass,
+                    molecularWeight,
+                    inchiKey,
+                    inchi,
+                    smiles,
+                    createdAt,
+                    iupacName
             ));
         }
+
         return list;
     }
 
+    /**
+     * Erzeugt eine zufällige aber chemisch plausible Summenformel.
+     * Format: CxHyOz mit zufälligen Werten für x, y, z (z optional).
+     * @return Summenformel als String
+     */
     private static String randomFormula() {
         return "C" + (5 + random.nextInt(10)) +
                 "H" + (5 + random.nextInt(15)) +

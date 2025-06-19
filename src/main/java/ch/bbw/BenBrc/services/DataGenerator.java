@@ -5,36 +5,49 @@ import ch.bbw.BenBrc.models.*;
 
 import java.util.*;
 /**
- * DataGenerator class to create and manage chemical data.
- * author: Benedict Brück
- * version: 1.0
- * date: 16.06.25
+ * Die Klasse DataGenerator dient als zentrale Stelle zur Erzeugung von Beispieldaten für das CoSoMi-System.
+ * nutzt jeweils die zugehörigen Factory-Klassen für:
+ * - Compounds (über CompoundFactory)
+ * - Solutions (basierend auf den erzeugten Compounds über SolutionFactory)
+ * - Mixes (basierend auf den Solutions über MixFactory)
+ * Diese Methoden ermöglichen eine vollständige und gekettete Datengenerierung für Tests oder Demonstrationen.
+ * Autor: Benedict Brück
+ * Version: 1.0
+ * Datum: 19.06.2025
  */
 public class DataGenerator {
 
     /**
-     * Generates 100 random Compounds with diverse and rich data.
+     * Generiert eine Liste von chemischen Grundstoffen (Compounds) mit Hilfe der CompoundFactory.
+     * @return Liste von Compounds (Standard: 100 Stück)
      */
     public static List<Compounds> generateCompounds() {
         return CompoundFactory.generateCompounds(100);
     }
 
     /**
-     * Wraps each Compound with a Solution-level context (e.g., added isotope like Deuterium).
+     * Generiert eine Liste von Solutions (veränderte oder angereicherte Compounds).
+     * Diese bauen auf bestehenden Compounds auf und erweitern deren Eigenschaften.
+     * @param compounds Liste der Grundstoffe, aus denen Solutions erstellt werden sollen
+     * @return Liste von Solutions
      */
     public static List<Solutions> generateSolutions(List<Compounds> compounds) {
         return SolutionFactory.generateSolutionsFrom(compounds);
     }
 
     /**
-     * Each Mix is created from several Solutions. Mix structure reflects associated Solution content.
+     * Generiert eine Liste von Mixes (chemische Mischungen aus Solutions).
+     * Die Mischungen bestehen aus einer Kombination von Lösungen.
+     * @param solutions Liste der Solutions, die für Mischungen verwendet werden sollen
+     * @return Liste von Mixes
      */
     public static List<Mixes> generateMixes(List<Solutions> solutions) {
         return MixFactory.generateMixesFrom(solutions);
     }
 
     /**
-     * Generates all datasets and prints example objects for visual verification.
+     * Generiert alle Daten (Compounds, Solutions und Mixes) und gibt eine Zusammenfassung der generierten Daten aus.
+     * Dient zum testen und demonstrieren der Funktionalität der DataGenerator-Klasse.
      */
     public static void generateAllAndPrint() {
         List<Compounds> compounds = generateCompounds();

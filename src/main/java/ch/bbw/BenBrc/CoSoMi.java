@@ -12,55 +12,68 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * This is the main class for the CoSoMi application.
- * It serves as the entry point for the application, where data is generated, filtered, sorted, and displayed.
- * author: Benedict Brück
- * version: 1.0
- * startDate: 13.06.25
- * FinalDate: 19.06.25
+ * Die Klasse CoSoMi ist der Einstiegspunkt für die Anwendung.
+ * Sie generiert Daten für Verbindungen, Lösungen und Mischungen
+ * und sortiert bzw. filtert diese Daten anschließend.
+ * Autor: Benedict Brück
+ * Version: 1.0
+ * Datum: 19.06.2025
  */
 public class CoSoMi {
     public static void main(String[] args) {
-        // 🔄 Daten generieren
+        // Daten generieren
         List<Compounds> compounds = DataGenerator.generateCompounds();
         List<Solutions> solutions = DataGenerator.generateSolutions(compounds);
         List<Mixes> mixes = DataGenerator.generateMixes(solutions);
 
-        // 🧪 COMPOUNDS
+        // Konsolenausgabe für Compounds (Verbindungen)
         ConsolePrinter.prettyPrintCompounds(
                 CompoundSorter.byNameThenCASThenDate(compounds, true),
-                "COMPOUND SORTIERUNG ⬆ Name → CAS → CreatedAt"
+                "COMPOUND SORTIERUNG (asc) Name → CAS → CreatedAt"
         );
 
+        // Sortierung von Compounds
         ConsolePrinter.prettyPrintCompounds(
                 CompoundSorter.byMolecularMassThenIUPAC(compounds, false),
-                "COMPOUND SORTIERUNG ⬇ Mol. Mass → IUPAC"
+                "COMPOUND SORTIERUNG (desc) Mol. Mass → IUPAC"
         );
 
+        // Filterung von Compounds
         ConsolePrinter.prettyPrintCompounds(
-                CompoundFilter.byNameContains(compounds, "5").stream().limit(5).collect(Collectors.toList()),
+                CompoundFilter.byNameContains(compounds, "5")
+                        .stream()
+                        .limit(5)
+                        .collect(Collectors.toList()),
                 "COMPOUND FILTER: Name enthält '5'"
         );
 
-        // ⚗️ SOLUTIONS
+        // Konsolenausgabe für Solutions (Lösungen)
         ConsolePrinter.prettyPrintSolutions(
                 SolutionSorter.byNameThenMass(solutions, true),
-                "SOLUTION SORTIERUNG ⬆ Name → Mass"
+                "SOLUTION SORTIERUNG (asc) Name → Mass"
         );
 
+        // Sortierung und Filterung von Solutions
         ConsolePrinter.prettyPrintSolutions(
-                SolutionFilter.byClassificationContains(solutions, "organic").stream().limit(5).collect(Collectors.toList()),
+                SolutionFilter.byClassificationContains(solutions, "organic")
+                        .stream()
+                        .limit(5)
+                        .collect(Collectors.toList()),
                 "SOLUTION FILTER: Classification enthält 'organic'"
         );
 
-        // 🧫 MIXES
+        // Konsolenausgabe für Mixes (Mischungen)
         ConsolePrinter.prettyPrintMixes(
                 MixSorter.byTypeThenVolume(mixes, false),
-                "MIX SORTIERUNG ⬇ Type → Volume"
+                "MIX SORTIERUNG (desc) Type → Volume"
         );
 
+        // Sortierung von Mixes
         ConsolePrinter.prettyPrintMixes(
-                MixFilter.byTypeEquals(mixes, "buffer").stream().limit(5).collect(Collectors.toList()),
+                MixFilter.byTypeEquals(mixes, "buffer")
+                        .stream()
+                        .limit(5)
+                        .collect(Collectors.toList()),
                 "MIX FILTER: Type = 'buffer'"
         );
     }

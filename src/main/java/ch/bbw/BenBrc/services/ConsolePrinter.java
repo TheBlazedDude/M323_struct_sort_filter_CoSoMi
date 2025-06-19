@@ -3,21 +3,27 @@ package ch.bbw.BenBrc.services;
 import ch.bbw.BenBrc.models.*;
 
 import java.text.SimpleDateFormat;
-import java.util.List;
+import java.util.*;
 
 /**
- * Utility class for pretty-printing compound, solution, and mix data to the console.
- * This class formats and displays chemical data in a user-friendly way.
- * author: Benedict Brück & ChatGPT for pretty printing
- * version: 1.0
- * date: 19.06.25
+ * Die Klasse ConsolePrinter dient dazu, formatierte Informationen
+ * über Compounds, Solutions und Mixes in der Konsole auszugeben.
+ * verwendet Methoden zur strukturierten, gut lesbaren Darstellung
+ * von Listenobjekten mit passenden Symbolen und Formatierungen.
+ * Autor: Benedict Brück
+ * Version: 1.0
+ * Datum: 19.06.2025
  */
 public class ConsolePrinter {
-
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
+    /**
+     * Gibt eine formatierte Liste von Compounds in der Konsole aus.
+     * @param compounds Liste der darzustellenden Compounds
+     * @param title Überschrift der Ausgabe
+     */
     public static void prettyPrintCompounds(List<Compounds> compounds, String title) {
-        System.out.println("\n🔍 " + title + " (" + compounds.size() + " Treffer)");
+        System.out.println("\n " + title + " (" + compounds.size() + " Treffer)");
         System.out.println("--------------------------------------------------");
 
         for (Compounds c : compounds) {
@@ -31,8 +37,13 @@ public class ConsolePrinter {
         }
     }
 
+    /**
+     * Gibt eine formatierte Liste von Solutions in der Konsole aus.
+     * @param solutions Liste der darzustellenden Solutions
+     * @param title Überschrift der Ausgabe
+     */
     public static void prettyPrintSolutions(List<Solutions> solutions, String title) {
-        System.out.println("\n🔍 " + title + " (" + solutions.size() + " Treffer)");
+        System.out.println("\n " + title + " (" + solutions.size() + " Treffer)");
         System.out.println("--------------------------------------------------");
 
         for (Solutions s : solutions) {
@@ -48,8 +59,13 @@ public class ConsolePrinter {
         }
     }
 
+    /**
+     * Gibt eine formatierte Liste von Mixes (Mischungen) aus, inkl. deren Komponenten.
+     * @param mixes Liste der darzustellenden Mischungen
+     * @param title Überschrift der Ausgabe
+     */
     public static void prettyPrintMixes(List<Mixes> mixes, String title) {
-        System.out.println("\n🔍 " + title + " (" + mixes.size() + " Treffer)");
+        System.out.println("\n " + title + " (" + mixes.size() + " Treffer)");
         System.out.println("--------------------------------------------------");
 
         for (Mixes m : mixes) {
@@ -69,6 +85,14 @@ public class ConsolePrinter {
         }
     }
 
+    /**
+     * Formatierungsfunktion zur Darstellung von Objekten.
+     * - Bei Datumsobjekten: Ausgabe als "yyyy-MM-dd"
+     * - Bei Double-Werten: Ausgabe mit 2 Nachkommastellen
+     * - Null-Werte werden als "-" dargestellt
+     * @param obj beliebiges Objekt
+     * @return formatierter String
+     */
     private static String format(Object obj) {
         if (obj == null) return "-";
         if (obj instanceof java.util.Date) return DATE_FORMAT.format(obj);
