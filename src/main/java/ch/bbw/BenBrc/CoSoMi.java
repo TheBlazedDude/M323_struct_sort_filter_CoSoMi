@@ -1,15 +1,19 @@
 package ch.bbw.BenBrc;
 
 import ch.bbw.BenBrc.models.*;
-import ch.bbw.BenBrc.services.*;
+import ch.bbw.BenBrc.services.ConsolePrinter;
+import ch.bbw.BenBrc.services.DataGenerator;
 import ch.bbw.BenBrc.utils.compound.*;
 import ch.bbw.BenBrc.utils.mix.*;
 import ch.bbw.BenBrc.utils.solution.*;
+import ch.bbw.BenBrc.factories.*;
 
 import java.util.*;
+import java.util.stream.Collectors;
+
 /**
  * This is the main class for the CoSoMi application.
- * It serves as the entry point for the application, where data is generated, filtered, sorted, and displayed (limited by 5 per request).
+ * It serves as the entry point for the application, where data is generated, filtered, sorted, and displayed.
  * author: Benedict Brück
  * version: 1.0
  * startDate: 13.06.25
@@ -17,32 +21,47 @@ import java.util.*;
  */
 public class CoSoMi {
     public static void main(String[] args) {
-        // Step 1: Generate Data
+        // 🔄 Daten generieren
         List<Compounds> compounds = DataGenerator.generateCompounds();
         List<Solutions> solutions = DataGenerator.generateSolutions(compounds);
         List<Mixes> mixes = DataGenerator.generateMixes(solutions);
 
-        // Step 2: Filter & Sort Examples
-        List<Compounds> topCompoundsByName = CompoundFilter.byName(compounds, "acid");
-        List<Compounds> heaviestCompounds = CompoundSorter.byMolecularWeight(compounds, false);
+        // 🧪 COMPOUNDS
+        ConsolePrinter.prettyPrintCompounds(
+                CompoundSorter.byNameThenCASThenDate(compounds, true),
+                "COMPOUND SORTIERUNG ⬆ Name → CAS → CreatedAt"
+        );
 
-        List<Solutions> organicSolutions = SolutionFilter.byClassification(solutions, "Organic compound");
-        List<Solutions> lightestSolutions = SolutionSorter.byMass(solutions, true);
+        ConsolePrinter.prettyPrintCompounds(
+                CompoundSorter.byMolecularMassThenIUPAC(compounds, false),
+                "COMPOUND SORTIERUNG ⬇ Mol. Mass → IUPAC"
+        );
 
-        List<Mixes> buffers = MixFilter.byType(mixes, "buffer");
-        List<Mixes> largestMixes = MixSorter.byVolume(mixes, false);
+        ConsolePrinter.prettyPrintCompounds(
+                CompoundFilter.byNameContains(compounds, "5").stream().limit(5).collect(Collectors.toList()),
+                "COMPOUND FILTER: Name enthält '5'"
+        );
 
-        // Step 3: Print Example Output
-        System.out.println("🔬 Filtered Compounds by Name:");
-        topCompoundsByName.forEach(c -> System.out.println("- " + c.getName()));
+        // ⚗️ SOLUTIONS
+        ConsolePrinter.prettyPrintSolutions(
+                SolutionSorter.byNameThenMass(solutions, true),
+                "SOLUTION SORTIERUNG ⬆ Name → Mass"
+        );
 
-        System.out.println("\n⚖️ Heaviest Compounds:");
-        heaviestCompounds.forEach(c -> System.out.println("- " + c.getName() + ": " + c.getMolecularWeight()));
+        ConsolePrinter.prettyPrintSolutions(
+                SolutionFilter.byClassificationContains(solutions, "organic").stream().limit(5).collect(Collectors.toList()),
+                "SOLUTION FILTER: Classification enthält 'organic'"
+        );
 
-        System.out.println("\n🧪 Organic Solutions:");
-        organicSolutions.forEach(s -> System.out.println("- " + s.getName()));
+        // 🧫 MIXES
+        ConsolePrinter.prettyPrintMixes(
+                MixSorter.byTypeThenVolume(mixes, false),
+                "MIX SORTIERUNG ⬇ Type → Volume"
+        );
 
-        System.out.println("\n💧 Largest Mixes:");
-        largestMixes.forEach(m -> System.out.println("- " + m.getName() + ": " + m.getVolume() + " L"));
+        ConsolePrinter.prettyPrintMixes(
+                MixFilter.byTypeEquals(mixes, "buffer").stream().limit(5).collect(Collectors.toList()),
+                "MIX FILTER: Type = 'buffer'"
+        );
     }
 }

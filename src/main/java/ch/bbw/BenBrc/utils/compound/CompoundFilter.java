@@ -11,11 +11,10 @@ import java.util.stream.*;
  * date: 19.06.25
  */
 public class CompoundFilter {
-
-    public static List<Compounds> byName(List<Compounds> list, String keyword) {
+    public static List<Compounds> byNameContains(List<Compounds> list, String keyword) {
         return list.stream()
                 .filter(c -> c.getName().toLowerCase().contains(keyword.toLowerCase()))
-                .limit(5).collect(Collectors.toList());
+                .collect(Collectors.toList());
     }
 
     public static List<Compounds> byFormula(List<Compounds> list, String formula) {
@@ -33,6 +32,18 @@ public class CompoundFilter {
     public static List<Compounds> byIUPAC(List<Compounds> list, String iupac) {
         return list.stream()
                 .filter(c -> c.getIUPACName().toLowerCase().contains(iupac.toLowerCase()))
+                .limit(5).collect(Collectors.toList());
+    }
+
+    public static List<Compounds> byCID(List<Compounds> list, int minCID) {
+        return list.stream()
+                .filter(c -> c.getCompound_CID() >= minCID)
+                .limit(5).collect(Collectors.toList());
+    }
+
+    public static List<Compounds> bySMILES(List<Compounds> list, String smilesPart) {
+        return list.stream()
+                .filter(c -> c.getSMILES().contains(smilesPart))
                 .limit(5).collect(Collectors.toList());
     }
 }

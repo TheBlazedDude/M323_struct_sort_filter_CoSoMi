@@ -16,7 +16,8 @@ public class Compounds {
     private String casNumber;
     private String description;
     private String pubChemId;
-    private String MolecularWeight;
+    private Double MolecularMass;
+    private Double MolecularWeight;
     private String InChIKey;
     private String InChI;
     private String SMILES;
@@ -30,7 +31,8 @@ public class Compounds {
                      String casNumber,
                      String description,
                      String pubChemId,
-                     String molecularWeight,
+                     Double molecularMass,
+                     Double molecularWeight,
                      String inChIKey,
                      String inChI,
                      String SMILES,
@@ -42,6 +44,7 @@ public class Compounds {
         this.casNumber = casNumber;
         this.description = description;
         this.pubChemId = pubChemId;
+        this.MolecularMass = molecularMass;
         this.MolecularWeight = molecularWeight;
         this.InChIKey = inChIKey;
         this.InChI = inChI;
@@ -59,7 +62,8 @@ public class Compounds {
     public String getInChI() {return InChI;}
     public String getInChIKey() {return InChIKey;}
     public String getIUPACName() {return IUPACName;}
-    public String getMolecularWeight() {return MolecularWeight;}
+    public Double getMolecularMass() { return MolecularMass;}
+    public Double getMolecularWeight() {return MolecularWeight;}
     public String getName() {return name;}
     public String getPubChemId() {return pubChemId;}
     public String getSMILES() {return SMILES;}
@@ -73,7 +77,8 @@ public class Compounds {
     public void setInChI(String inChI) {this.InChI = inChI;}
     public void setInChIKey(String inChIKey) {InChIKey = inChIKey;}
     public void setIUPACName(String IUPACName) {this.IUPACName = IUPACName;}
-    public void setMolecularWeight(String molecularWeight) {MolecularWeight = molecularWeight;}
+    public void setMolecularMass(Double molecularMass) {MolecularMass = molecularMass;}
+    public void setMolecularWeight(Double molecularWeight) {MolecularWeight = molecularWeight;}
     public void setName(String name) {this.name = name;}
     public void setPubChemId(String pubChemId) {this.pubChemId = pubChemId;}
     public void setSMILES(String SMILES) {this.SMILES = SMILES;}

@@ -17,12 +17,14 @@ public class SolutionFactory {
     public static List<Solutions> generateSolutionsFrom(List<Compounds> baseCompounds) {
         List<Solutions> list = new ArrayList<>();
         for (Compounds c : baseCompounds) {
-            double weight = Double.parseDouble(c.getMolecularWeight());
-            double mass = weight + (random.nextDouble() * 0.02 - 0.01);
+            double weight = c.getMolecularWeight();
+            double mass = weight + (random.nextDouble() * 0.02 - 0.01); // ±0.01 variation
+            Calendar cal = Calendar.getInstance();
+            cal.set(2025, Calendar.JUNE, random.nextInt(30) + 1);
 
             list.add(new Solutions(
                     c.getCompound_CID(),
-                    c.getName(),
+                    c.getName() + "_Sol",
                     c.getFormula(),
                     weight,
                     mass,
@@ -30,7 +32,8 @@ public class SolutionFactory {
                     c.getIUPACName(),
                     List.of(c.getName(), "Alt_" + c.getName()),
                     c.getInChIKey(),
-                    "Organic compound"
+                    "Organic compound",
+                    cal.getTime()
             ));
         }
         return list;

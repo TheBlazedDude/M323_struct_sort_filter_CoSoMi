@@ -20,18 +20,20 @@ public class Solutions {
     private List<String> synonyms;
     private String inchiKey;
     private String classification;
+    private Date createdAt;
 
     // Constructor
     public Solutions(int cid,
                      String name,
                      String molecularFormula,
                      double molecularWeight,
-                    double molecularMass,
+                     double molecularMass,
                      String smiles,
                      String iupacName,
                      List<String> synonyms,
                      String inchiKey,
-                     String classification) {
+                     String classification,
+                     Date createdAt) {
         this.cid = cid;
         this.name = name;
         this.molecularFormula = molecularFormula;
@@ -42,6 +44,7 @@ public class Solutions {
         this.synonyms = synonyms;
         this.inchiKey = inchiKey;
         this.classification = classification;
+        this.createdAt = createdAt != null ? createdAt : new Date();
     }
 
     // Getters and Setters
@@ -55,6 +58,7 @@ public class Solutions {
     public List<String> getSynonyms() { return synonyms; }
     public String getInchiKey() { return inchiKey; }
     public String getClassification() { return classification; }
+    public Date getCreatedAt() { return createdAt; }
 
     // Setters
     public void setCid(int cid) { this.cid = cid; }
@@ -67,6 +71,7 @@ public class Solutions {
     public void setSynonyms(List<String> synonyms) { this.synonyms = synonyms; }
     public void setInchiKey(String inchiKey) { this.inchiKey = inchiKey; }
     public void setClassification(String classification) { this.classification = classification; }
+    public void setCreatedAt(Date createdAt) { this.createdAt = createdAt != null ? createdAt : new Date();}
 
     @Override
     public String toString() {
@@ -81,6 +86,7 @@ public class Solutions {
                 ", synonyms=" + synonyms +
                 ", inchiKey='" + inchiKey + '\'' +
                 ", classification='" + classification + '\'' +
+                ", createdAt=" + createdAt + '\'' +
                 '}';
     }
 }

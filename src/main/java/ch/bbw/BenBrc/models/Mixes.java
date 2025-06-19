@@ -1,4 +1,8 @@
 package ch.bbw.BenBrc.models;
+
+import java.util.Date;
+import java.util.List;
+
 /**
  * Model class for Mixes.
  * This class represents a mix of substances, including its properties such as name, description, type, volume,
@@ -13,8 +17,9 @@ public class Mixes {
     private String description;
     private String type; // e.g., "solution", "suspension", etc.
     private double volume; // in liters
-    private String preparationDate; // date of preparation
-    private String expirationDate; // date of expiration
+    private List<Solutions> components;
+    private Date preparationDate; // date of preparation
+    private Date expirationDate; // date of expiration
 
     // Constructor
     public Mixes(int mixId,
@@ -22,16 +27,19 @@ public class Mixes {
                  String description,
                  String type,
                  double volume,
-                 String preparationDate,
-                 String expirationDate) {
+                 List<Solutions> components,
+                 Date preparationDate,
+                 Date expirationDate) {
         this.mixId = mixId;
         this.name = name;
         this.description = description;
         this.type = type;
         this.volume = volume;
+        this.components = components;
         this.preparationDate = preparationDate;
         this.expirationDate = expirationDate;
     }
+
 
     // Getters
     public int getMixId() { return mixId; }
@@ -39,8 +47,9 @@ public class Mixes {
     public String getDescription() { return description; }
     public String getType() { return type; }
     public double getVolume() { return volume; }
-    public String getPreparationDate() { return preparationDate; }
-    public String getExpirationDate() { return expirationDate; }
+    public List<Solutions> getComponents() { return components; }
+    public Date getPreparationDate() { return preparationDate; }
+    public Date getExpirationDate() { return expirationDate; }
 
     // Setters
     public void setMixId(int mixId) { this.mixId = mixId; }
@@ -48,8 +57,9 @@ public class Mixes {
     public void setDescription(String description) { this.description = description; }
     public void setType(String type) { this.type = type; }
     public void setVolume(double volume) { this.volume = volume; }
-    public void setPreparationDate(String preparationDate) { this.preparationDate = preparationDate; }
-    public void setExpirationDate(String expirationDate) { this.expirationDate = expirationDate; }
+    public void setComponents(List<Solutions> components) { this.components = components; }
+    public void setPreparationDate(Date preparationDate) { this.preparationDate = preparationDate; }
+    public void setExpirationDate(Date expirationDate) { this.expirationDate = expirationDate; }
 
     @Override
     public String toString() {
@@ -59,6 +69,7 @@ public class Mixes {
                 ", description='" + description + '\'' +
                 ", type='" + type + '\'' +
                 ", volume=" + volume +
+                ", components=" + components + '\'' +
                 ", preparationDate='" + preparationDate + '\'' +
                 ", expirationDate='" + expirationDate + '\'' +
                 '}';
